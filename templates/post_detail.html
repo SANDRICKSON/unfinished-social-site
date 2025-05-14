@@ -1,0 +1,27 @@
+<!-- Comment Section -->
+<form id="comment-form">
+    <textarea id="comment-input" placeholder="Write a comment"></textarea>
+    <button type="submit">Post Comment</button>
+</form>
+
+<div id="comments-section">
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <p>{{ comment.user.username }}: {{ comment.content }}</p>
+            <form id="reply-form">
+                <input type="hidden" id="comment-id" value="{{ comment.id }}">
+                <textarea id="reply-input" placeholder="Write a reply"></textarea>
+                <button type="submit">Post Reply</button>
+            </form>
+            <div id="replies-section">
+                {% for reply in comment.replies.all %}
+                    <div class="reply">
+                        <p>{{ reply.user.username }}: {{ reply.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<script src="{% static 'js/comments.js' %}"></script>
